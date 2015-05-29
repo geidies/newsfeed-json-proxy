@@ -20,10 +20,19 @@ get '/*' do |path|
     doc = {
       :title => document['title'][0],
       :url   => document['url'][0],
+      :source => document['sourcename'][0],
+      :hitsentence => document['js_matchsentence'][0].gsub(/<\/?b>/, ''),
+      :publishDate => document['createDate'][0],
     }
+    doc[:hitwords] = document['matchsentences'][0]['wordsMatched2'][0].split /#/
     out_doc[:documents] << doc
   end
-  out_doc.to_json
+  if params.has_key?( 'pretty' ) && params['pretty'] != 'false'
+    JSON.pretty_generate out_doc
+  else
+    out_doc.to_json
+  end
+
 end
 
 def validate? path
