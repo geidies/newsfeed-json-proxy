@@ -21,7 +21,7 @@ get '/*' do |path|
       :title => document['title'][0],
       :url   => document['url'][0],
       :source => document['sourcename'][0],
-      :hitsentence => document['js_matchsentence'][0].gsub(/<\/?b>/, ''),
+      :hitsentence => document['js_matchsentence'][0].gsub(/<\\*\/?b>/, ''),
       :publishDate => document['createDate'][0],
     }
     doc[:hitwords] = document['matchsentences'][0]['wordsMatched2'][0].split /#/
